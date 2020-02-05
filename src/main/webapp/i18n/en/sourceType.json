@@ -1,0 +1,9 @@
+{
+  "task1HalfApp": {
+    "SourceType": {
+      "null": "",
+      "FREE": "FREE",
+      "PREMIUM": "PREMIUM"
+    }
+  }
+}

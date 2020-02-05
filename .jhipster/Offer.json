@@ -1,0 +1,35 @@
+{
+    "name": "Offer",
+    "fields": [
+        {
+            "fieldName": "departmentName",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "product",
+            "otherEntityRelationshipName": "offer",
+            "relationshipName": "product",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "productUser",
+            "otherEntityRelationshipName": "offers",
+            "relationshipName": "productUser",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200205113254",
+    "entityTableName": "offer",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

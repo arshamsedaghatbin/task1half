@@ -1,0 +1,33 @@
+{
+    "name": "ProductUser",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "source",
+            "fieldType": "SourceType",
+            "fieldValues": "FREE,PREMIUM"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "offer",
+            "otherEntityRelationshipName": "productUser",
+            "relationshipName": "offers"
+        }
+    ],
+    "changelogDate": "20200205113255",
+    "javadoc": "Task entity.\\n@author The JHipster team.",
+    "entityTableName": "product_user",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}
