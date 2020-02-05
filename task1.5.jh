@@ -1,0 +1,58 @@
+entity Customer {
+	name String,
+    lastName String,
+    
+}
+
+entity Product {
+	name String
+}
+
+
+
+entity Offer {
+	departmentName String 
+}
+
+/**
+ * Task entity.
+ * @author The JHipster team.
+ */
+entity ProductUser {
+	name String,
+    source SourceType
+	
+}
+
+
+
+enum SourceType {
+    FREE, PREMIUM
+}
+
+
+
+
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+	ProductUser{offers} to Offer,	/**
+	* A relationship
+	*/
+    Customer{product} to Product
+}
+
+relationship ManyToOne {
+	Offer{product} to Product
+}
+
+
+
+
+// Use Data Transfert Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
