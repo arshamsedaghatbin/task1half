@@ -1,0 +1,24 @@
+{
+  "task1HalfApp": {
+    "productUser": {
+      "home": {
+        "title": "Product Users",
+        "createLabel": "Create a new Product User",
+        "createOrEditLabel": "Create or edit a Product User",
+        "notFound": "No Product Users found"
+      },
+      "created": "A new Product User is created with identifier {{ param }}",
+      "updated": "A Product User is updated with identifier {{ param }}",
+      "deleted": "A Product User is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Product User {{ id }}?"
+      },
+      "detail": {
+        "title": "Product User"
+      },
+      "name": "Name",
+      "source": "Source",
+      "offers": "Offers"
+    }
+  }
+}
