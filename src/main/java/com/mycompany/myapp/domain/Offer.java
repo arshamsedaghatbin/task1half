@@ -29,6 +29,17 @@ public class Offer implements Serializable {
     @JsonIgnoreProperties("offers")
     private ProductUser productUser;
 
+    private Integer orderOffer;
+
+
+    public Integer getOrderOffer() {
+        return orderOffer;
+    }
+
+    public void setOrderOffer(Integer orderOffer) {
+        this.orderOffer = orderOffer;
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
