@@ -1,11 +1,11 @@
-id;name
-1;Generic Steel Tuna
-2;website calculating
-3;cross-platform support
-4;navigate wireless Chilean Peso Unidades de fomento
-5;reboot
-6;Dynamic magenta Track
-7;actuating THX
-8;Division
-9;Steel
-10;Kina networks
+id;name;customer_id
+1;Generic Steel Tuna;1
+2;website calculating;6
+3;cross-platform support;4
+4;navigate wireless Chilean Peso Unidades de fomento;10
+5;reboot;9
+6;Dynamic magenta Track;5
+7;actuating THX;2
+8;Division;1
+9;Steel;4
+10;Kina networks;1
