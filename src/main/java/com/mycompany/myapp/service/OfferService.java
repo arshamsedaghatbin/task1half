@@ -1,6 +1,7 @@
 package com.mycompany.myapp.service;
 
 import com.mycompany.myapp.domain.Offer;
+import com.mycompany.myapp.domain.Product;
 
 import java.util.List;
 import java.util.Optional;
@@ -42,4 +43,5 @@ public interface OfferService {
     void delete(Long id);
 
     void migrateOfferData();
+
 }
