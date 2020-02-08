@@ -1,5 +1,6 @@
 package com.mycompany.myapp.service.impl;
 
+import com.mycompany.myapp.domain.Product;
 import com.mycompany.myapp.domain.enumeration.SourceType;
 import com.mycompany.myapp.repository.ProductRepository;
 import com.mycompany.myapp.service.OfferService;
@@ -93,17 +94,21 @@ public class OfferServiceImpl implements OfferService, CommandLineRunner {
     public void migrateOfferData(){
         productRepository.streamAll()
             .forEach((p) -> {
-                AtomicInteger x = new AtomicInteger();
-                offerRepository.streamByProduct(p)
-                    .forEach(o -> {
-                        if (o.getProductUser().getSource().equals(SourceType.FREE)) {
-                            x.getAndIncrement();
-                            o.setOrderOffer(x.get() );
-                        } else {
-                            o.setOrderOffer(0);
-                        }
-                        offerRepository.save(o);
-                    });
+                setOrderForOffer(p);
+            });
+    }
+
+    private void setOrderForOffer(Product p) {
+        AtomicInteger x = new AtomicInteger();
+        offerRepository.streamByProduct(p)
+            .forEach(o -> {
+                if (o.getProductUser().getSource().equals(SourceType.FREE)) {
+                    x.getAndIncrement();
+                    o.setOrderOffer(x.get() );
+                } else {
+                    o.setOrderOffer(0);
+                }
+                offerRepository.save(o);
             });
     }
 
