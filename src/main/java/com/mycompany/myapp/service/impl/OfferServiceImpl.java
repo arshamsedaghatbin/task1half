@@ -17,6 +17,7 @@ import org.springframework.core.env.Profiles;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -25,17 +26,11 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Service Implementation for managing {@link Offer}.
  */
 @Service
-public class OfferServiceImpl implements OfferService, CommandLineRunner {
+public class OfferServiceImpl implements OfferService {
 
     private final Logger log = LoggerFactory.getLogger(OfferServiceImpl.class);
 
     private final OfferRepository offerRepository;
-
-    @Autowired
-    private Environment environment;
-
-    @Autowired
-    private ProductRepository productRepository;
 
     public OfferServiceImpl(OfferRepository offerRepository) {
         this.offerRepository = offerRepository;
@@ -50,6 +45,7 @@ public class OfferServiceImpl implements OfferService, CommandLineRunner {
     @Override
     public Offer save(Offer offer) {
         log.debug("Request to save Offer : {}", offer);
+        offer.setUpdatedAt(Calendar.getInstance().getTimeInMillis());
         return offerRepository.save(offer);
     }
 
@@ -88,35 +84,5 @@ public class OfferServiceImpl implements OfferService, CommandLineRunner {
     public void delete(Long id) {
         log.debug("Request to delete Offer : {}", id);
         offerRepository.deleteById(id);
-    }
-
-    @Override
-    public void migrateOfferData(){
-        productRepository.streamAll()
-            .forEach((p) -> {
-                setOrderForOffer(p);
-            });
-    }
-
-    private void setOrderForOffer(Product p) {
-        AtomicInteger x = new AtomicInteger();
-        offerRepository.streamByProduct(p)
-            .forEach(o -> {
-                if (o.getProductUser().getSource().equals(SourceType.FREE)) {
-                    x.getAndIncrement();
-                    o.setOrderOffer(x.get() );
-                } else {
-                    o.setOrderOffer(0);
-                }
-                offerRepository.save(o);
-            });
-    }
-
-    @Override
-    @Transactional
-    public void run(String... args){
-        if (environment.acceptsProfiles(Profiles.of("migrate"))) {
-            migrateOfferData();
-        }
     }
 }

@@ -20,4 +20,7 @@ public interface OfferRepository extends JpaRepository<Offer, Long> {
     @Query("select o from Offer o where o.product= :p1")
     Stream<Offer> streamByProduct(@Param(value = "p1") Product product);
 
+    @Query("select o from Offer o where o.updatedAt > :p1 and o.updatedAt is not null or o.createdAt> :p2 and o.createdAt is not null ")
+    Stream<Offer> streamByUpdatedAtAndUpdatedAtNotNullOrCreatedAtAndCreatedAtNotNull(@Param(value = "p1") Long updateEpoch,@Param(value = "p2") Long createEpoch);
+
 }
