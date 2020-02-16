@@ -1,9 +1,12 @@
 package com.mycompany.myapp.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
 /**
  * A Offer.
@@ -31,6 +34,28 @@ public class Offer implements Serializable {
 
     private Integer orderOffer;
 
+
+    private Long createdAt;
+
+
+    private Long updatedAt;
+
+
+    public Long getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Long createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Long getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Long updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 
     public Integer getOrderOffer() {
         return orderOffer;
@@ -111,5 +136,10 @@ public class Offer implements Serializable {
             "id=" + getId() +
             ", departmentName='" + getDepartmentName() + "'" +
             "}";
+    }
+
+    @PrePersist
+    private void beforePersist(){
+        this.setCreatedAt(Calendar.getInstance().getTime().getTime());
     }
 }

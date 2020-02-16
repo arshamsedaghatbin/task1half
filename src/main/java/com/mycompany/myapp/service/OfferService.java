@@ -42,6 +42,5 @@ public interface OfferService {
      */
     void delete(Long id);
 
-    void migrateOfferData();
 
 }

@@ -22,5 +22,6 @@
     <include file="config/liquibase/changelog/20200205113253_added_entity_constraints_Product.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200205113254_added_entity_constraints_Offer.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200205113255_added_order_offer_column.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200216113255_added_createdat_and_updatedat_offer_column.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

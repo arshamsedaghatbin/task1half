@@ -11,6 +11,9 @@ import com.mycompany.myapp.repository.CustomerRepository;
 import com.mycompany.myapp.repository.OfferRepository;
 import com.mycompany.myapp.repository.ProductRepository;
 import com.mycompany.myapp.repository.ProductUserRepository;
+import com.mycompany.myapp.schedule.MigrateUpdatedData;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,13 +21,13 @@ import org.springframework.transaction.annotation.Transactional;
 import springfox.documentation.schema.Example;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(classes = Task1HalfApp.class)
 public class OfferTest {
-
     @Autowired
     private ProductUserRepository  productUserRepository;
     @Autowired
@@ -34,10 +37,13 @@ public class OfferTest {
     @Autowired
     private OfferRepository offerRepository;
     @Autowired
-    private OfferService offerService;
-    @Test
+    private MigrateDataService migrateDataService;
+    @Autowired
+    private MigrateUpdatedData migrateUpdatedData;
+
+    @BeforeEach
     @Transactional
-    public void test_migrate_data(){
+    public void initData(){
         Set<Product> products=new HashSet<>();
         Customer customer=new Customer();
         customer.setName("arsham");
@@ -86,12 +92,28 @@ public class OfferTest {
         offers3.add(o3);
         productUser3.setOffers(offers3);
         productUserRepository.save(productUser3);
+    }
 
 
-        offerService.migrateOfferData();
+    @Test
+    @Transactional
+    public void test_migrate_data(){
+        migrateDataService.migrateOfferData();
         assertThat(offerRepository.findById(1l).get().getOrderOffer()).isEqualTo(1);
         assertThat(offerRepository.findById(2l).get().getOrderOffer()).isEqualTo(0);
         assertThat(offerRepository.findById(3l).get().getOrderOffer()).isEqualTo(2);
+    }
 
+    @Test
+    @Transactional
+    public void test_update_offer_in_migrate_data(){
+        ProductUser byId = productUserRepository.findById(3l).get();
+        offerRepository.findById(2l)
+        .ifPresent((o)->{
+            o.setProductUser(byId);
+            offerRepository.save(o);
+            migrateUpdatedData.migrateUpdateData();
+            assertThat(offerRepository.findById(3l).get().getOrderOffer()).isEqualTo(3);
+        });
     }
 }
